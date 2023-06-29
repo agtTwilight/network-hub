@@ -1,14 +1,15 @@
 import React from 'react';
 import './App.css';
+import { Home } from './pages/Home';
+import { Profile } from './pages/Profile';
 
+// initialize firebase sdk & firestore instance
 import 'fireabase/auth';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-import { useAuthState } from 'react-firebase-hooks/auth';
+import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { Home } from './pages/Home';
-import { Profile } from './pages/Profile';
 
 firebase.initializeApp({
 	apiKey: 'AIzaSyAJ3utzwJu2hKZRost8GK2XcYFTU5z1_bI',
@@ -33,9 +34,24 @@ function App() {
 			<header></header>
 			<section>
 				{/* Check if user is logged in. Use terneray operator to show correct page */}
-				{user ? <Profile /> : <Home />}
+				{user ? <Profile /> : <SignIn />}
 			</section>
 		</div>
+	);
+}
+
+function SignIn() {
+	const signInWithGoogle = () => {
+		const provider = new firebase.auth.GoogleAuthProvider();
+		auth.signInWithPopup(provider);
+	};
+
+	return <button onClick={useSignInWithGoogle}>Sign in with Google</button>;
+}
+
+function SignOut() {
+	return (
+		auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
 	);
 }
 
