@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Profile } from './pages/Profile';
 
 // initialize firebase sdk & firestore instance
 import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import {
+	GoogleAuthProvider,
+	getAuth,
+	onAuthStateChanged,
+	signInWithPopup,
+} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseApp = initializeApp({
@@ -21,31 +26,44 @@ const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
 
 function App() {
-	// Check if user is signed in with google
-	// logged in -> user = true. Else, user = null.
-	const user = auth.currentUser;
-	console.log(auth);
+	const [user, setUser] = useState(null);
+
+	// Check if user is signed in
+	// TODO learn how to make page render after this effect is finished (don't want sign in to render initially, and then change after callback returns user))
+	useEffect(() => {
+		onAuthStateChanged(auth, (user) => {
+			if (user) {
+				setUser(user);
+			} else {
+				console.log('no user');
+			}
+		});
+	}, [user]);
 
 	return (
 		<div className="App">
 			<header></header>
-			<section>
-				{/* Check if user is logged in. Use terneray operator to show correct page */}
-				{user ? <Profile user={auth.currentUser} /> : <SignIn />}
-			</section>
+			<section>{user ? <Profile /> : <SignIn />}</section>
 		</div>
 	);
 }
 
 function SignIn() {
 	const signInWithGoogle = () => {
-		const provider = new firebaseApp.auth.GoogleAuthProvider();
-		auth.signInWithPopup(provider);
+		const provider = new GoogleAuthProvider();
+		signInWithPopup(auth, provider)
+			.then((result) => {
+				console.log(result);
+			})
+			.catch((err) => {
+				throw err;
+			});
 	};
 
 	return <button onClick={signInWithGoogle}>Sign in with Google</button>;
 }
 
+// TODO setup signout
 function SignOut() {
 	return (
 		auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
