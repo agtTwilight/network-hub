@@ -43,7 +43,7 @@ function App() {
 	return (
 		<div className="App">
 			<header></header>
-			<section>{user ? <Profile /> : <SignIn />}</section>
+			<section>{user ? <Profile user={user} /> : <SignIn />}</section>
 		</div>
 	);
 }
