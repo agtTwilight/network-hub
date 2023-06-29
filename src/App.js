@@ -1,17 +1,13 @@
 import React from 'react';
 import './App.css';
-import { Home } from './pages/Home';
 import { Profile } from './pages/Profile';
 
 // initialize firebase sdk & firestore instance
-import 'fireabase/auth';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 
-import { useAuthState, useSignInWithGoogle } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
-
-firebase.initializeApp({
+const firebaseApp = initializeApp({
 	apiKey: 'AIzaSyAJ3utzwJu2hKZRost8GK2XcYFTU5z1_bI',
 	authDomain: 'nfc-app-7f535.firebaseapp.com',
 	projectId: 'nfc-app-7f535',
@@ -21,20 +17,21 @@ firebase.initializeApp({
 	measurementId: 'G-XGE7TLKVFX',
 });
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+const auth = getAuth(firebaseApp);
+const db = getFirestore(firebaseApp);
 
 function App() {
 	// Check if user is signed in with google
 	// logged in -> user = true. Else, user = null.
-	const [user] = useAuthState(auth);
+	const user = auth.currentUser;
+	console.log(auth);
 
 	return (
 		<div className="App">
 			<header></header>
 			<section>
 				{/* Check if user is logged in. Use terneray operator to show correct page */}
-				{user ? <Profile /> : <SignIn />}
+				{user ? <Profile user={auth.currentUser} /> : <SignIn />}
 			</section>
 		</div>
 	);
@@ -42,7 +39,7 @@ function App() {
 
 function SignIn() {
 	const signInWithGoogle = () => {
-		const provider = new firebase.auth.GoogleAuthProvider();
+		const provider = new firebaseApp.auth.GoogleAuthProvider();
 		auth.signInWithPopup(provider);
 	};
 
