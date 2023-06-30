@@ -10,7 +10,7 @@ import {
 	onAuthStateChanged,
 	signInWithPopup,
 } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { doc, getFirestore, setDoc } from 'firebase/firestore';
 
 const firebaseApp = initializeApp({
 	apiKey: 'AIzaSyAJ3utzwJu2hKZRost8GK2XcYFTU5z1_bI',
@@ -53,7 +53,9 @@ function SignIn() {
 		const provider = new GoogleAuthProvider();
 		signInWithPopup(auth, provider)
 			.then((result) => {
-				console.log(result);
+				if (result._tokenResponse.isNewUser) {
+					newUserSignUp(result.user);
+				}
 			})
 			.catch((err) => {
 				throw err;
@@ -69,5 +71,17 @@ function SignOut() {
 		auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
 	);
 }
+
+const newUserSignUp = async (user) => {
+	await setDoc(doc(db, 'users', user.uid), {
+		newUser: true,
+		name: user.displayName,
+		location: null,
+		title: null,
+		skills: null,
+		links: null,
+	});
+	console.log(`succesfully registered ${user.displayName}!`);
+};
 
 export default App;
