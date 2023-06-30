@@ -10,7 +10,15 @@ import {
 	onAuthStateChanged,
 	signInWithPopup,
 } from 'firebase/auth';
-import { doc, getFirestore, setDoc } from 'firebase/firestore';
+import {
+	Firestore,
+	collection,
+	doc,
+	getFirestore,
+	query,
+	setDoc,
+	where,
+} from 'firebase/firestore';
 
 const firebaseApp = initializeApp({
 	apiKey: 'AIzaSyAJ3utzwJu2hKZRost8GK2XcYFTU5z1_bI',
@@ -24,6 +32,7 @@ const firebaseApp = initializeApp({
 
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
+const usersRef = collection(db, 'users');
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -73,13 +82,14 @@ function SignOut() {
 }
 
 const newUserSignUp = async (user) => {
-	await setDoc(doc(db, 'users', user.uid), {
+	await setDoc(doc(usersRef, user.uid), {
 		newUser: true,
 		name: user.displayName,
 		location: null,
 		title: null,
 		skills: null,
 		links: null,
+		url: user.uid,
 	});
 	console.log(`succesfully registered ${user.displayName}!`);
 };
