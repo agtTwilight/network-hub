@@ -40,7 +40,6 @@ function App() {
 	const [profileData, setProfileData] = useState(null);
 
 	// Check if user is signed in
-	// TODO learn how to make page render after this effect is finished (don't want sign in to render initially, and then change after callback returns user))
 	useEffect(() => {
 		onAuthStateChanged(auth, async (user) => {
 			if (user) {
