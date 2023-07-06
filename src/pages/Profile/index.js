@@ -8,7 +8,10 @@ export const Profile = (props) => {
 			{props.profileData ? (
 				<>
 					{props.profileData.newUser ? (
-						<NewUserSetup profileData={props.profileData} />
+						<NewUserSetup
+							profileData={props.profileData}
+							handleSetupSubmit={props.handleSetupSubmit}
+						/>
 					) : (
 						<></>
 					)}

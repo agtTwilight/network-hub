@@ -18,6 +18,7 @@ import {
 	getFirestore,
 	query,
 	setDoc,
+	updateDoc,
 	where,
 } from 'firebase/firestore';
 
@@ -45,6 +46,7 @@ function App() {
 			if (user) {
 				setUserData(user);
 				setProfileData(await getProfileData(user.uid));
+				console.log(profileData);
 			} else {
 				console.log('no user');
 			}
@@ -58,12 +60,27 @@ function App() {
 		return docSnap.data();
 	};
 
+	const handleSetupSubmit = async () => {
+		const docRef = doc(usersRef, userData.uid);
+		console.log(docRef);
+		await updateDoc(docRef, {
+			title: document.getElementById('title-input').value,
+			location: document.getElementById('location-input').value,
+			skills: 'Firebase',
+		});
+		console.log('successfully updated');
+	};
+
 	return (
 		<div className="App">
 			<header></header>
 			<section>
 				{userData ? (
-					<Profile userData={userData} profileData={profileData} />
+					<Profile
+						userData={userData}
+						profileData={profileData}
+						handleSetupSubmit={handleSetupSubmit}
+					/>
 				) : (
 					<SignIn />
 				)}
