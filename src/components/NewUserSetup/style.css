@@ -1,0 +1,8 @@
+.setup-modal {
+	position: absolute;
+	border: solid black 1px;
+	background-color: white;
+	top: 0;
+	left: 0;
+	transform: translateX(50%) translateY(50%);
+}

@@ -7,7 +7,11 @@ export const Profile = (props) => {
 		<section className="profile">
 			{props.profileData ? (
 				<>
-					{props.profileData.newUser ? <NewUserSetup /> : <></>}
+					{props.profileData.newUser ? (
+						<NewUserSetup profileData={props.profileData} />
+					) : (
+						<></>
+					)}
 					<div className="profile-header">
 						<h2>{props.profileData.name}</h2>
 						<h3>{props.profileData.title}</h3>
