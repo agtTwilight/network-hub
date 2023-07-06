@@ -14,6 +14,7 @@ import {
 	Firestore,
 	collection,
 	doc,
+	getDoc,
 	getFirestore,
 	query,
 	setDoc,
@@ -35,24 +36,39 @@ const db = getFirestore(firebaseApp);
 const usersRef = collection(db, 'users');
 
 function App() {
-	const [user, setUser] = useState(null);
+	const [userData, setUserData] = useState(null);
+	const [profileData, setProfileData] = useState(null);
 
 	// Check if user is signed in
 	// TODO learn how to make page render after this effect is finished (don't want sign in to render initially, and then change after callback returns user))
 	useEffect(() => {
-		onAuthStateChanged(auth, (user) => {
+		onAuthStateChanged(auth, async (user) => {
 			if (user) {
-				setUser(user);
+				setUserData(user);
+				setProfileData(await getProfileData(user.uid));
 			} else {
 				console.log('no user');
 			}
 		});
-	}, [user]);
+	}, [userData]);
+
+	const getProfileData = async (uid) => {
+		const docRef = doc(usersRef, uid);
+		const docSnap = await getDoc(docRef);
+
+		return docSnap.data();
+	};
 
 	return (
 		<div className="App">
 			<header></header>
-			<section>{user ? <Profile user={user} /> : <SignIn />}</section>
+			<section>
+				{userData ? (
+					<Profile userData={userData} profileData={profileData} />
+				) : (
+					<SignIn />
+				)}
+			</section>
 		</div>
 	);
 }
