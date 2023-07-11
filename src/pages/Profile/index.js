@@ -66,6 +66,16 @@ export const Profile = (props) => {
 		}
 	};
 
+	const createNewLink = () => {
+		return (
+			<div className="link-input">
+				<input placeholder="type"></input>
+				<input placeholder="url"></input>
+				<input placeholder="description"></input>
+			</div>
+		);
+	};
+
 	return (
 		<section className="profile">
 			{data ? (
@@ -143,7 +153,28 @@ export const Profile = (props) => {
 					</div>
 					<section id="profile-links">
 						{edit ? (
-							<></>
+							<>
+								{data.links ? (
+									data.links.map((link, index) => {
+										return (
+											<div className="link-input" key={index}>
+												<select defaultValue={link.type}>
+													<option value="email">Email</option>
+													<option value="github">Github</option>
+													<option value="google">Google</option>
+													<option value="linkedin">Linkedin</option>
+													<option value="phone">Phone</option>
+													<option value="venmo">Venmo</option>
+												</select>
+												<input placeholder={link.url}></input>
+												<input placeholder={link.description}></input>
+											</div>
+										);
+									})
+								) : (
+									<></>
+								)}
+							</>
 						) : (
 							<>
 								{data.links ? (

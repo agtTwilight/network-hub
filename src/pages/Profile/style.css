@@ -71,7 +71,7 @@
 
 .profile-link {
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	margin: 1rem;
 	padding: 0.5rem;
 	border: solid black 1px;
