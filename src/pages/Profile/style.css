@@ -1,0 +1,45 @@
+.profile {
+	border: solid red 1px;
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+.profile * {
+	text-decoration: none;
+	list-style-type: none;
+}
+
+.profile-header {
+	border: solid purple;
+	min-height: 150px;
+}
+
+.profile-body {
+	display: flex;
+	flex-direction: column;
+	text-align: start;
+	margin: 1rem;
+}
+
+.profile-body > * {
+	margin: 0.5rem;
+	width: fit-content;
+}
+
+.profile-body hr {
+	width: auto;
+}
+
+.profile-skills {
+	display: flex;
+	padding: 0;
+}
+
+.profile-skills > * {
+	margin: 0.5rem;
+	padding: 0.25rem;
+	border: solid darkslategray 1px;
+	border-radius: 8px;
+	background-color: slategrey;
+	color: whitesmoke;
+}

@@ -64,11 +64,11 @@ function App() {
 		const docRef = doc(usersRef, userData.uid);
 		console.log(docRef);
 		await updateDoc(docRef, {
+			newUser: false,
 			title: document.getElementById('title-input').value,
 			location: document.getElementById('location-input').value,
-			skills: 'Firebase',
+			skills: ['Firebase'],
 		});
-		console.log('successfully updated');
 	};
 
 	return (
@@ -120,8 +120,8 @@ const newUserSignUp = async (user) => {
 		name: user.displayName,
 		location: null,
 		title: null,
-		skills: null,
-		links: null,
+		skills: [],
+		links: [],
 		url: user.uid,
 	});
 	console.log(`succesfully registered ${user.displayName}!`);
