@@ -51,7 +51,7 @@ function App() {
 				console.log('no user');
 			}
 		});
-	}, [userData]);
+	}, []);
 
 	const getProfileData = async (uid) => {
 		const docRef = doc(usersRef, uid);
@@ -80,6 +80,7 @@ function App() {
 						userData={userData}
 						profileData={profileData}
 						handleSetupSubmit={handleSetupSubmit}
+						usersRef={usersRef}
 					/>
 				) : (
 					<SignIn />
