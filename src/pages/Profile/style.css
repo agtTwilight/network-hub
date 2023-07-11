@@ -1,5 +1,7 @@
 .profile {
-	border: solid red 1px;
+	border: solid black;
+	background-color: gray;
+	border-radius: 16px;
 	max-width: 1024px;
 	margin: 0 auto;
 }
@@ -10,7 +12,7 @@
 }
 
 .profile-header {
-	border: solid purple;
+	border-bottom: solid black;
 	min-height: 150px;
 }
 
@@ -18,12 +20,25 @@
 	display: flex;
 	flex-direction: column;
 	text-align: start;
-	margin: 1rem;
+	padding: 1rem;
+	background-color: lightgrey;
 }
 
 .profile-body > * {
 	margin: 0.5rem;
 	width: fit-content;
+}
+
+#profile-location-edit {
+	display: flex;
+	width: auto;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#profile-location-edit > * {
+	height: fit-content;
+	margin: 0;
 }
 
 .profile-body hr {
@@ -36,10 +51,38 @@
 }
 
 .profile-skills > * {
-	margin: 0.5rem;
+	margin: 0 0.5rem;
 	padding: 0.25rem;
 	border: solid darkslategray 1px;
 	border-radius: 8px;
 	background-color: slategrey;
 	color: whitesmoke;
+}
+
+#profile-links {
+	border-top: solid black;
+}
+
+#profile-links img {
+	height: 4rem;
+	width: 4rem;
+	transition: 0.3s ease-in-out;
+}
+
+.profile-link {
+	display: flex;
+	align-items: center;
+	margin: 1rem;
+	padding: 0.5rem;
+	border: solid black 1px;
+	border-radius: 6px;
+	background-color: lightgrey;
+}
+
+.profile-link p {
+	margin: 1rem;
+}
+
+.profile-link:hover img {
+	transform: scale(1.1);
 }
