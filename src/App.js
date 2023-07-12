@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useParams } from 'react-router-dom';
 import './App.css';
 import { Profile } from './pages/Profile';
 
@@ -76,6 +76,7 @@ function App() {
 		<div className="App">
 			<BrowserRouter>
 				<Routes>
+					<Route path="/:uid" element={<ViewProfile />} />
 					<Route
 						path="*"
 						element={
@@ -121,6 +122,32 @@ function SignIn() {
 function SignOut() {
 	return (
 		auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
+	);
+}
+
+function ViewProfile() {
+	const { uid } = useParams();
+	const [profileData, setProfileData] = useState(null);
+
+	useEffect(() => {
+		getProfileData(uid);
+	}, []);
+
+	const getProfileData = async (uid) => {
+		const docRef = doc(usersRef, uid);
+		const docSnap = await getDoc(docRef);
+
+		setProfileData(docSnap.data());
+	};
+
+	return (
+		<>
+			{profileData ? (
+				<Profile profileData={profileData} />
+			) : (
+				<h1>Err: no such user exist</h1>
+			)}
+		</>
 	);
 }
 

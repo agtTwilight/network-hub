@@ -24,12 +24,14 @@ export const Profile = (props) => {
 	const [display, setDisplay] = useState('none');
 
 	useEffect(() => {
-		const updateData = onSnapshot(
-			doc(props.usersRef, props.userData.uid),
-			(doc) => {
-				return setData(doc.data());
-			}
-		);
+		if (props.userData) {
+			const updateData = onSnapshot(
+				doc(props.usersRef, props.userData.uid),
+				(doc) => {
+					return setData(doc.data());
+				}
+			);
+		}
 	});
 
 	const enableEdit = () => {
@@ -92,6 +94,9 @@ export const Profile = (props) => {
 			url: form.children[1].value,
 			description: form.children[2].value,
 		};
+
+		form.children[1].value = '';
+		form.children[2].value = '';
 
 		setDisplay('none');
 
@@ -168,7 +173,7 @@ export const Profile = (props) => {
 								<h3>{data.title}</h3>
 								<div id="profile-location-edit">
 									<p>{data.location}</p>
-									{data.url === props.userData.uid ? (
+									{props.userData ? (
 										<button className="enable-edit" onClick={enableEdit}>
 											Edit
 										</button>
