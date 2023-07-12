@@ -1,4 +1,10 @@
-import { doc, onSnapshot, updateDoc } from 'firebase/firestore';
+import {
+	arrayRemove,
+	arrayUnion,
+	doc,
+	onSnapshot,
+	updateDoc,
+} from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { NewUserSetup } from '../../components/NewUserSetup';
 import email from './assets/email.png';
@@ -6,12 +12,15 @@ import github from './assets/github.png';
 import google from './assets/google.png';
 import linkedin from './assets/linkedin.png';
 import phone from './assets/phone.png';
+import plus from './assets/plus.png';
+import trash from './assets/trash.png';
 import venmo from './assets/venmo.png';
 import './style.css';
 
 export const Profile = (props) => {
 	const [data, setData] = useState(props.profileData);
 	const [edit, setEdit] = useState(false);
+	const [display, setDisplay] = useState('none');
 
 	useEffect(() => {
 		const updateData = onSnapshot(
@@ -66,14 +75,32 @@ export const Profile = (props) => {
 		}
 	};
 
-	const createNewLink = () => {
-		return (
-			<div className="link-input">
-				<input placeholder="type"></input>
-				<input placeholder="url"></input>
-				<input placeholder="description"></input>
-			</div>
-		);
+	const showNewLinkModal = () => {
+		setDisplay('block');
+	};
+
+	const hideNewLinkModal = () => {
+		setDisplay('none');
+	};
+
+	const createNewLink = async (e) => {
+		const docRef = doc(props.usersRef, props.userData.uid);
+		const form = e.target.parentNode;
+		const linkData = {
+			type: form.children[0].value,
+			url: form.children[1].value,
+			description: form.children[2].value,
+		};
+
+		setDisplay('none');
+
+		await updateDoc(docRef, {
+			links: arrayUnion(linkData),
+		});
+	};
+
+	const deleteLink = () => {
+		alert('are you sure');
 	};
 
 	return (
@@ -168,12 +195,37 @@ export const Profile = (props) => {
 												</select>
 												<input placeholder={link.url}></input>
 												<input placeholder={link.description}></input>
+												<img
+													src={trash}
+													alt="a garbage can"
+													onClick={deleteLink}
+												></img>
 											</div>
 										);
 									})
 								) : (
 									<></>
 								)}
+								<div id="new-link-form" className={display + ' link-input'}>
+									<select required>
+										<option value="email">Email</option>
+										<option value="github">Github</option>
+										<option value="google">Google</option>
+										<option value="linkedin">Linkedin</option>
+										<option value="phone">Phone</option>
+										<option value="venmo">Venmo</option>
+									</select>
+									<input placeholder="URL" required></input>
+									<input placeholder="Description" required></input>
+									<button onClick={hideNewLinkModal}>Cancel</button>
+									<button onClick={createNewLink}>Create</button>
+								</div>
+								<img
+									src={plus}
+									alt="A plus sign"
+									id="add-link"
+									onClick={showNewLinkModal}
+								></img>
 							</>
 						) : (
 							<>

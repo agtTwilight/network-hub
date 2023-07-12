@@ -1,3 +1,11 @@
+.none {
+	display: none !important;
+}
+
+.block {
+	display: flex;
+}
+
 .profile {
 	border: solid black;
 	background-color: gray;
@@ -64,14 +72,14 @@
 }
 
 #profile-links img {
-	height: 4rem;
-	width: 4rem;
+	height: 3rem;
+	width: 3rem;
 	transition: 0.3s ease-in-out;
 }
 
 .profile-link {
 	display: flex;
-	/* align-items: center; */
+	align-items: center;
 	margin: 1rem;
 	padding: 0.5rem;
 	border: solid black 1px;
@@ -85,4 +93,30 @@
 
 .profile-link:hover img {
 	transform: scale(1.1);
+}
+
+.link-input {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.5rem;
+	gap: 0.25rem;
+}
+
+.link-input img {
+	height: 1.5rem !important;
+	width: 1.5rem !important;
+}
+
+#add-link {
+	margin: 1rem;
+	transition: 0.3s ease-in-out;
+}
+
+#add-link:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+#new-link-form {
 }
