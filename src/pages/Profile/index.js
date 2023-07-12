@@ -1,4 +1,5 @@
 import {
+	FieldValue,
 	arrayRemove,
 	arrayUnion,
 	doc,
@@ -99,8 +100,18 @@ export const Profile = (props) => {
 		});
 	};
 
-	const deleteLink = () => {
-		alert('are you sure');
+	const deleteLink = async (e) => {
+		const docRef = doc(props.usersRef, props.userData.uid);
+		const form = e.target.parentNode;
+		const linkData = {
+			type: form.children[0].value,
+			url: form.children[1].placeholder,
+			description: form.children[2].placeholder,
+		};
+
+		await updateDoc(docRef, {
+			links: arrayRemove(linkData),
+		});
 	};
 
 	return (
