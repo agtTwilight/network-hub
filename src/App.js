@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { Profile } from './pages/Profile';
 
@@ -73,19 +74,28 @@ function App() {
 
 	return (
 		<div className="App">
-			<header></header>
-			<section>
-				{userData ? (
-					<Profile
-						userData={userData}
-						profileData={profileData}
-						handleSetupSubmit={handleSetupSubmit}
-						usersRef={usersRef}
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path="*"
+						element={
+							<section>
+								{userData ? (
+									<Profile
+										userData={userData}
+										profileData={profileData}
+										handleSetupSubmit={handleSetupSubmit}
+										usersRef={usersRef}
+									/>
+								) : (
+									<SignIn />
+								)}
+							</section>
+						}
 					/>
-				) : (
-					<SignIn />
-				)}
-			</section>
+					{/* <Route path="/"></Route> */}
+				</Routes>
+			</BrowserRouter>
 		</div>
 	);
 }
