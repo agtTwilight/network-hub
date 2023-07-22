@@ -67,8 +67,7 @@
 	margin-top: 0.8rem;
 	padding: 0.25rem 0.75rem;
 	border-radius: 16px;
-	background-color: rgb(205, 205, 205);
-	color: rgb(51, 51, 51);
+	background-color: rgb(228, 228, 228);
 }
 
 #profile-links a {
@@ -102,10 +101,6 @@
 
 .profile-link p {
 	margin: 1rem 2rem;
-}
-
-.profile-link:hover img {
-	transform: scale(1.1);
 }
 
 .link-input {
