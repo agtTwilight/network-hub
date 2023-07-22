@@ -66,16 +66,16 @@
 	margin: 0 0.5rem;
 	margin-top: 0.8rem;
 	padding: 0.25rem 0.75rem;
-	border: solid rgb(224, 224, 224) 1px;
 	border-radius: 16px;
-	background-color: rgb(226, 226, 226);
+	background-color: rgb(205, 205, 205);
+	color: rgb(51, 51, 51);
 }
 
 #profile-links a {
 	position: relative;
 }
 
-#profile-links img {
+.profile-links-preview-img {
 	position: absolute;
 	left: -2rem;
 	top: 50%;
@@ -128,6 +128,8 @@
 }
 
 #add-link {
+	height: 3rem;
+	width: 3rem;
 	margin: 1rem;
 	transition: 0.3s ease-in-out;
 }

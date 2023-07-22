@@ -255,6 +255,7 @@ export const Profile = (props) => {
 											className="profile-link"
 										>
 											<img
+												className="profile-links-preview-img"
 												src={findSrc(link.type)}
 												alt={`${link.type} logo`}
 											></img>
