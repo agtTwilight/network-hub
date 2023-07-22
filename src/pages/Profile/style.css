@@ -9,6 +9,7 @@
 .profile {
 	max-width: 500px;
 	margin: 0 auto;
+	padding: 3rem;
 }
 
 .profile * {
@@ -114,11 +115,12 @@
 .link-input img {
 	height: 1.5rem !important;
 	width: 1.5rem !important;
-	transition: 0.3s ease-in-out;
+	filter: brightness(0) invert(0);
+	transition: 0.2s ease;
 }
 
 .link-input img:hover {
-	transform: scale(1.1);
+	filter: none;
 	cursor: pointer;
 }
 
@@ -132,7 +134,4 @@
 #add-link:hover {
 	cursor: pointer;
 	transform: scale(1.1);
-}
-
-#new-link-form {
 }
