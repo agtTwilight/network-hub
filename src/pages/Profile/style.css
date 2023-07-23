@@ -62,6 +62,12 @@
 	border-radius: 50%;
 }
 
+#profile-picture-select {
+	position: absolute;
+	bottom: 0.25rem;
+	left: 10rem;
+}
+
 .profile-body {
 	border: solid 1px rgb(205, 205, 205);
 	border-top: none;

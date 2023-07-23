@@ -21,8 +21,9 @@ import './style.css';
 
 export const Profile = (props) => {
 	const [data, setData] = useState(props.profileData);
-	const [edit, setEdit] = useState(false);
 	const [display, setDisplay] = useState('none');
+	const [edit, setEdit] = useState(false);
+	const [imageUpload, setImageUpload] = useState(null);
 
 	useEffect(() => {
 		if (props.userData) {
@@ -120,6 +121,8 @@ export const Profile = (props) => {
 		});
 	};
 
+	const uploadImage = () => {};
+
 	return (
 		<section className="profile">
 			{data ? (
@@ -138,6 +141,11 @@ export const Profile = (props) => {
 							src={placeholder}
 							alt="grey silhouette"
 						></img>
+						{edit ? (
+							<input id="profile-picture-select" type="file"></input>
+						) : (
+							<></>
+						)}
 					</div>
 					<div className="profile-body">
 						{edit ? (

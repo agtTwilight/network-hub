@@ -22,6 +22,7 @@ import {
 	updateDoc,
 	where,
 } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 const firebaseApp = initializeApp({
 	apiKey: 'AIzaSyAJ3utzwJu2hKZRost8GK2XcYFTU5z1_bI',
@@ -35,6 +36,7 @@ const firebaseApp = initializeApp({
 
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
+const storage = getStorage(firebaseApp);
 const usersRef = collection(db, 'users');
 
 function App() {
@@ -87,6 +89,7 @@ function App() {
 										profileData={profileData}
 										handleSetupSubmit={handleSetupSubmit}
 										usersRef={usersRef}
+										storage={storage}
 									/>
 								) : (
 									<SignIn />
