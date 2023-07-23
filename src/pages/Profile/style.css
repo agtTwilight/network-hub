@@ -44,11 +44,22 @@
 }
 
 .profile-header {
+	position: relative;
 	border: solid 1px rgb(205, 205, 205);
 	background-color: whitesmoke;
 	border-top-left-radius: 16px;
 	border-top-right-radius: 16px;
 	min-height: 150px;
+}
+
+#profile-picture {
+	position: absolute;
+	bottom: -2.5rem;
+	left: 1rem;
+	height: 8rem;
+	width: 8rem;
+	border: solid 2px rgb(205, 205, 205);
+	border-radius: 50%;
 }
 
 .profile-body {
@@ -61,6 +72,7 @@
 	flex-direction: column;
 	text-align: start;
 	padding: 1rem;
+	padding-top: 3.5rem;
 }
 
 .profile-body > * {

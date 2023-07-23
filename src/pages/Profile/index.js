@@ -13,6 +13,7 @@ import github from './assets/github.png';
 import google from './assets/google.png';
 import linkedin from './assets/linkedin.png';
 import phone from './assets/phone.png';
+import placeholder from './assets/placeholder.jpeg';
 import plus from './assets/plus.png';
 import trash from './assets/trash.png';
 import venmo from './assets/venmo.png';
@@ -131,7 +132,13 @@ export const Profile = (props) => {
 					) : (
 						<></>
 					)}
-					<div className="profile-header"></div>
+					<div className="profile-header">
+						<img
+							id="profile-picture"
+							src={placeholder}
+							alt="grey silhouette"
+						></img>
+					</div>
 					<div className="profile-body">
 						{edit ? (
 							<>
