@@ -6,6 +6,7 @@ import {
 	onSnapshot,
 	updateDoc,
 } from 'firebase/firestore';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import { NewUserSetup } from '../../components/NewUserSetup';
 import email from './assets/email.png';
@@ -23,6 +24,7 @@ export const Profile = (props) => {
 	const [data, setData] = useState(props.profileData);
 	const [display, setDisplay] = useState('none');
 	const [edit, setEdit] = useState(false);
+	const [profilePicture, setProfilePicture] = useState(null);
 	const [imageUpload, setImageUpload] = useState(null);
 
 	useEffect(() => {
@@ -35,6 +37,19 @@ export const Profile = (props) => {
 			);
 		}
 	});
+
+	useEffect(() => {
+		if (props.userData) {
+			const profilePictureReference = ref(
+				props.storage,
+				`images/profile_pictures/${props.userData.uid}`
+			);
+
+			getDownloadURL(profilePictureReference).then((url) => {
+				setProfilePicture(url);
+			});
+		}
+	}, []);
 
 	const enableEdit = () => {
 		setEdit(true);
@@ -56,6 +71,10 @@ export const Profile = (props) => {
 					: (edits[input.id] = input.value.split(','));
 			}
 		});
+
+		if (imageUpload !== null) {
+			handleImageUpload();
+		}
 
 		setEdit(false);
 		if (Object.keys(edits).length) {
@@ -121,7 +140,13 @@ export const Profile = (props) => {
 		});
 	};
 
-	const uploadImage = () => {};
+	const handleImageUpload = () => {
+		const imageRef = ref(
+			props.storage,
+			`images/profile_pictures/${props.userData.uid}`
+		);
+		uploadBytes(imageRef, imageUpload);
+	};
 
 	return (
 		<section className="profile">
@@ -138,7 +163,7 @@ export const Profile = (props) => {
 					<div className="profile-header">
 						<img
 							id="profile-picture"
-							src={placeholder}
+							src={profilePicture ? profilePicture : placeholder}
 							alt="grey silhouette"
 						></img>
 						{edit ? (
@@ -146,6 +171,9 @@ export const Profile = (props) => {
 								id="profile-picture-select"
 								type="file"
 								accept="image/png, image/gif, image/jpeg"
+								onChange={(event) => {
+									setImageUpload(event.target.files[0]);
+								}}
 							></input>
 						) : (
 							<></>
