@@ -27,6 +27,7 @@ export const Profile = (props) => {
 	const [profilePicture, setProfilePicture] = useState(null);
 	const [imageUpload, setImageUpload] = useState(null);
 
+	// listen to update to userData in firestore
 	useEffect(() => {
 		if (props.userData) {
 			const updateData = onSnapshot(
@@ -38,6 +39,7 @@ export const Profile = (props) => {
 		}
 	});
 
+	// get a users profile picture on page load
 	useEffect(() => {
 		if (props.userData) {
 			const profilePictureReference = ref(
@@ -45,9 +47,14 @@ export const Profile = (props) => {
 				`images/profile_pictures/${props.userData.uid}`
 			);
 
-			getDownloadURL(profilePictureReference).then((url) => {
-				setProfilePicture(url);
-			});
+			getDownloadURL(profilePictureReference).then(
+				(url) => {
+					setProfilePicture(url);
+				},
+				(err) => {
+					return true;
+				}
+			);
 		}
 	}, []);
 
