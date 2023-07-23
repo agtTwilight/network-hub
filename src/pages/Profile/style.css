@@ -151,13 +151,14 @@
 }
 
 #add-link {
-	height: 3rem;
-	width: 3rem;
-	margin: 1rem;
-	transition: 0.3s ease-in-out;
+	height: 1.5rem;
+	width: 1.5rem;
+	margin: 0.5rem;
+	transition: 0.2s ease;
+	filter: brightness(0) invert(0);
 }
 
 #add-link:hover {
 	cursor: pointer;
-	transform: scale(1.1);
+	filter: none;
 }
