@@ -152,10 +152,13 @@ export const Profile = (props) => {
 										placeholder={data.location}
 									></input>
 									<section className="edit-options">
-										<button className="cancel-edit" onClick={cancelEdit}>
+										<button className="cancel-button" onClick={cancelEdit}>
 											Cancel
 										</button>
-										<button className="submit-edit" onClick={handleEditSubmit}>
+										<button
+											className="submit-button"
+											onClick={handleEditSubmit}
+										>
 											Submit
 										</button>
 									</section>
@@ -233,8 +236,12 @@ export const Profile = (props) => {
 									</select>
 									<input placeholder="URL" required></input>
 									<input placeholder="Description" required></input>
-									<button onClick={hideNewLinkModal}>Cancel</button>
-									<button onClick={createNewLink}>Create</button>
+									<button className="cancel-button" onClick={hideNewLinkModal}>
+										Cancel
+									</button>
+									<button className="submit-button" onClick={createNewLink}>
+										Create
+									</button>
 								</div>
 								<img
 									src={plus}

@@ -12,6 +12,32 @@
 	padding: 3rem;
 }
 
+.profile button {
+	margin: 0 0.25rem;
+	padding: 0.25rem 0.75rem;
+	border: solid 1px #455a64;
+	border-radius: 8px;
+	background-color: rgb(228, 228, 228);
+	color: #455a64;
+	transition: 0.2s ease;
+}
+
+.profile button:hover {
+	background-color: #9fafb6;
+}
+
+.cancel-button:hover {
+	background-color: #ff8a80 !important;
+	color: #b84b42 !important;
+	border: solid 1px #b84b42;
+}
+
+.submit-button:hover {
+	background-color: #1ad2a4 !important;
+	color: #007b5d !important;
+	border: solid 1px #007b5d;
+}
+
 .profile * {
 	text-decoration: none;
 	list-style-type: none;
