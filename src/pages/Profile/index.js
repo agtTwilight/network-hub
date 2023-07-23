@@ -142,7 +142,11 @@ export const Profile = (props) => {
 							alt="grey silhouette"
 						></img>
 						{edit ? (
-							<input id="profile-picture-select" type="file"></input>
+							<input
+								id="profile-picture-select"
+								type="file"
+								accept="image/png, image/gif, image/jpeg"
+							></input>
 						) : (
 							<></>
 						)}
