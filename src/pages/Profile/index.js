@@ -8,6 +8,7 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { NewUserSetup } from '../../components/NewUserSetup';
 import email from './assets/email.png';
 import github from './assets/github.png';
@@ -26,6 +27,7 @@ export const Profile = (props) => {
 	const [edit, setEdit] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(null);
 	const [imageUpload, setImageUpload] = useState(null);
+	const { uid } = useParams();
 
 	// listen to update to userData in firestore
 	useEffect(() => {
@@ -42,7 +44,9 @@ export const Profile = (props) => {
 	// get a users profile picture on page load
 	useEffect(() => {
 		if (props.userData) {
-			getProfilePicture();
+			if (!props.profileData) {
+				getProfilePicture(props.userData.uid);
+			}
 		}
 	}, []);
 
@@ -69,7 +73,8 @@ export const Profile = (props) => {
 
 		if (imageUpload !== null) {
 			await handleImageUpload();
-			getProfilePicture();
+			getProfilePicture(props.userData.uid);
+			edits['profilePictureUrl'] = profilePicture;
 		}
 
 		setEdit(false);
@@ -144,10 +149,10 @@ export const Profile = (props) => {
 		await uploadBytes(imageRef, imageUpload);
 	};
 
-	const getProfilePicture = () => {
+	const getProfilePicture = (uid) => {
 		const profilePictureReference = ref(
 			props.storage,
-			`images/profile_pictures/${props.userData.uid}`
+			`images/profile_pictures/${uid}`
 		);
 
 		getDownloadURL(profilePictureReference).then(
@@ -175,7 +180,13 @@ export const Profile = (props) => {
 					<div className="profile-header">
 						<img
 							id="profile-picture"
-							src={profilePicture ? profilePicture : placeholder}
+							src={
+								props.profileData.profilePictureUrl
+									? props.profileData.profilePictureUrl
+									: profilePicture
+									? profilePicture
+									: placeholder
+							}
 							alt="portrait"
 						></img>
 						{edit ? (

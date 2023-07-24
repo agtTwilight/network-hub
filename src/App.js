@@ -49,7 +49,6 @@ function App() {
 			if (user) {
 				setUserData(user);
 				setProfileData(await getProfileData(user.uid));
-				console.log(profileData);
 			} else {
 				console.log('no user');
 			}
@@ -65,7 +64,6 @@ function App() {
 
 	const handleSetupSubmit = async () => {
 		const docRef = doc(usersRef, userData.uid);
-		console.log(docRef);
 		await updateDoc(docRef, {
 			newUser: false,
 			title: document.getElementById('title-input').value,
@@ -146,7 +144,7 @@ function ViewProfile() {
 	return (
 		<>
 			{profileData ? (
-				<Profile profileData={profileData} />
+				<Profile profileData={profileData} uid={uid} />
 			) : (
 				<h1>Err: no such user exist</h1>
 			)}
@@ -162,7 +160,7 @@ const newUserSignUp = async (user) => {
 		title: null,
 		skills: [],
 		links: [],
-		url: user.uid,
+		uid: user.uid,
 	});
 	console.log(`succesfully registered ${user.displayName}!`);
 };
