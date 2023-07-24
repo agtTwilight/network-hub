@@ -41,16 +41,14 @@ export const Profile = (props) => {
 	});
 
 	// get a users profile picture on page load
-	useEffect(() => {
-		if (props.userData) {
-			if (props.profileData) {
-				if (props.profileData.profilePictureUrl == null) {
-					getProfilePicture(props.userData.uid);
-					console.log('url fetched');
-				}
-			}
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (props.userData) {
+	// 		if (props.profileData) {
+	// 			if (props.profileData.profilePictureUrl == null) {
+	// 			}
+	// 		}
+	// 	}
+	// }, []);
 
 	const enableEdit = () => {
 		setEdit(true);
@@ -188,7 +186,7 @@ export const Profile = (props) => {
 						<img
 							id="profile-picture"
 							src={
-								props.profileData.profilePictureUrl
+								props.profileData
 									? props.profileData.profilePictureUrl
 									: profilePicture
 									? profilePicture
