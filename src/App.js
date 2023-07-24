@@ -124,11 +124,11 @@ function SignIn() {
 }
 
 // TODO setup signout
-function SignOut() {
-	return (
-		auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
-	);
-}
+// function SignOut() {
+// 	return (
+// 		auth.currentUser && <button onClick={() => auth.signOut()}>Sign Out</button>
+// 	);
+// }
 
 function ViewProfile() {
 	const { uid } = useParams();

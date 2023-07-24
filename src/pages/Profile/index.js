@@ -13,7 +13,6 @@ import email from './assets/email.png';
 import github from './assets/github.png';
 import google from './assets/google.png';
 import linkedin from './assets/linkedin.png';
-import phone from './assets/phone.png';
 import placeholder from './assets/placeholder.jpeg';
 import plus from './assets/plus.png';
 import question from './assets/question.png';
@@ -86,8 +85,6 @@ export const Profile = (props) => {
 			return google;
 		} else if (src === 'linkedin') {
 			return linkedin;
-		} else if (src === 'phone') {
-			return phone;
 		} else if (src === 'venmo') {
 			return venmo;
 		}
@@ -286,7 +283,6 @@ export const Profile = (props) => {
 													<option value="github">Github</option>
 													<option value="google">Google</option>
 													<option value="linkedin">Linkedin</option>
-													<option value="phone">Phone</option>
 													<option value="venmo">Venmo</option>
 												</select>
 												<input placeholder={link.url}></input>
@@ -308,7 +304,6 @@ export const Profile = (props) => {
 										<option value="github">Github</option>
 										<option value="google">Google</option>
 										<option value="linkedin">Linkedin</option>
-										<option value="phone">Phone</option>
 										<option value="venmo">Venmo</option>
 									</select>
 									<input placeholder="URL" required></input>
