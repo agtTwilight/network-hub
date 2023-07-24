@@ -52,6 +52,7 @@ function App() {
 				setProfileData(await getProfileData(user.uid));
 			} else {
 				console.log('no user');
+				setIsFetching(false);
 			}
 		});
 	}, []);
@@ -120,7 +121,13 @@ function SignIn() {
 			});
 	};
 
-	return <button onClick={signInWithGoogle}>Sign in with Google</button>;
+	return (
+		<section>
+			<h2>Welcome to the Networking Hub!</h2>
+			<h3>Sign in with your google account to get started:</h3>
+			<button onClick={signInWithGoogle}>Sign in with Google</button>
+		</section>
+	);
 }
 
 // TODO setup signout
@@ -169,7 +176,7 @@ const newUserSignUp = async (user) => {
 		skills: ['my skills'],
 		links: [
 			{
-				description: 'my profile',
+				description: 'my Network Hub profile',
 				type: 'google',
 				url: `http://localhost:3000/${user.uid}`,
 			},
