@@ -8,8 +8,6 @@ import {
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { NewUserSetup } from '../../components/NewUserSetup';
 import copyLink from './assets/copy.png';
 import email from './assets/email.png';
 import github from './assets/github.png';
@@ -163,12 +161,25 @@ export const Profile = (props) => {
 		return url;
 	};
 
+	const displayTutorial = () => {
+		// TODO just link to the readme.
+	};
+
 	return (
 		<section className="profile">
 			{data ? (
 				<>
 					<div className="profile-header">
-						<img id="question-help" src={question} alt="question mark"></img>
+						{props.userData ? (
+							<img
+								id="question-help"
+								src={question}
+								alt="question mark"
+								onClick={displayTutorial}
+							></img>
+						) : (
+							<></>
+						)}
 						<img
 							id="profile-picture"
 							src={

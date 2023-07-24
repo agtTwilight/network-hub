@@ -42,6 +42,7 @@ const usersRef = collection(db, 'users');
 function App() {
 	const [userData, setUserData] = useState(null);
 	const [profileData, setProfileData] = useState(null);
+	const [isFetching, setIsFetching] = useState(true);
 
 	// Check if user is signed in
 	useEffect(() => {
@@ -58,6 +59,7 @@ function App() {
 	const getProfileData = async (uid) => {
 		const docRef = doc(usersRef, uid);
 		const docSnap = await getDoc(docRef);
+		setIsFetching(false);
 
 		return docSnap.data();
 	};
@@ -81,7 +83,9 @@ function App() {
 						path="*"
 						element={
 							<section>
-								{userData ? (
+								{isFetching ? (
+									<></>
+								) : userData ? (
 									<Profile
 										userData={userData}
 										profileData={profileData}
@@ -129,6 +133,7 @@ function SignOut() {
 function ViewProfile() {
 	const { uid } = useParams();
 	const [profileData, setProfileData] = useState(null);
+	const [isFetching, setIsFetching] = useState(true);
 
 	useEffect(() => {
 		getProfileData(uid);
@@ -137,13 +142,16 @@ function ViewProfile() {
 	const getProfileData = async (uid) => {
 		const docRef = doc(usersRef, uid);
 		const docSnap = await getDoc(docRef);
+		setIsFetching(false);
 
 		setProfileData(docSnap.data());
 	};
 
 	return (
 		<>
-			{profileData ? (
+			{isFetching ? (
+				<></>
+			) : profileData ? (
 				<Profile profileData={profileData} />
 			) : (
 				<h1>Err: no such user exist</h1>
