@@ -52,6 +52,21 @@
 	min-height: 150px;
 }
 
+#question-help {
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	height: 1.5rem;
+	width: 1.5rem;
+	filter: grayscale(1);
+	transition: 0.2s ease;
+}
+
+#question-help:hover {
+	cursor: pointer;
+	filter: none;
+}
+
 #profile-picture {
 	position: absolute;
 	bottom: -2.5rem;
@@ -115,6 +130,20 @@
 	background-color: rgb(228, 228, 228);
 }
 
+#skills-edit {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+#skills-edit > * {
+	height: fit-content;
+}
+
+#skills-edit p {
+	font-size: 12px;
+}
+
 #profile-links a {
 	position: relative;
 }
@@ -146,6 +175,14 @@
 
 .profile-link p {
 	margin: 1rem 2rem;
+	color: #455a64;
+}
+
+.link-clipboard-copy {
+	position: absolute;
+	height: 1.5rem;
+	width: 1.5rem;
+	right: 1rem;
 }
 
 .link-input {

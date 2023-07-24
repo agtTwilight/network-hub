@@ -10,6 +10,7 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NewUserSetup } from '../../components/NewUserSetup';
+import copyLink from './assets/copy.png';
 import email from './assets/email.png';
 import github from './assets/github.png';
 import google from './assets/google.png';
@@ -17,6 +18,7 @@ import linkedin from './assets/linkedin.png';
 import phone from './assets/phone.png';
 import placeholder from './assets/placeholder.jpeg';
 import plus from './assets/plus.png';
+import question from './assets/question.png';
 import trash from './assets/trash.png';
 import venmo from './assets/venmo.png';
 import './style.css';
@@ -160,11 +162,14 @@ export const Profile = (props) => {
 		return url;
 	};
 
+	const copyToClickboard = () => {};
+
 	return (
 		<section className="profile">
 			{data ? (
 				<>
 					<div className="profile-header">
+						<img id="question-help" src={question} alt="question mark"></img>
 						<img
 							id="profile-picture"
 							src={
@@ -223,11 +228,14 @@ export const Profile = (props) => {
 									</section>
 								</div>
 								<hr></hr>
-								<input
-									id="skills"
-									className="profile-edit-input"
-									placeholder={data.skills}
-								></input>
+								<div id="skills-edit">
+									<input
+										id="skills"
+										className="profile-edit-input"
+										placeholder={data.skills}
+									></input>
+									<p>(comma seperated)</p>
+								</div>
 							</>
 						) : (
 							<>
@@ -326,6 +334,12 @@ export const Profile = (props) => {
 												alt={`${link.type} logo`}
 											></img>
 											<p>{link.description}</p>
+											<img
+												className="link-clipboard-copy"
+												src={copyLink}
+												alt="copy to clipboard"
+												onClick={copyToClickboard}
+											></img>
 										</a>
 									))
 								) : (
