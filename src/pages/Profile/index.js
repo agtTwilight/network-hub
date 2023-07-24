@@ -42,19 +42,7 @@ export const Profile = (props) => {
 	// get a users profile picture on page load
 	useEffect(() => {
 		if (props.userData) {
-			const profilePictureReference = ref(
-				props.storage,
-				`images/profile_pictures/${props.userData.uid}`
-			);
-
-			getDownloadURL(profilePictureReference).then(
-				(url) => {
-					setProfilePicture(url);
-				},
-				(err) => {
-					return true;
-				}
-			);
+			getProfilePicture();
 		}
 	}, []);
 
@@ -80,7 +68,8 @@ export const Profile = (props) => {
 		});
 
 		if (imageUpload !== null) {
-			handleImageUpload();
+			await handleImageUpload();
+			getProfilePicture();
 		}
 
 		setEdit(false);
@@ -147,12 +136,28 @@ export const Profile = (props) => {
 		});
 	};
 
-	const handleImageUpload = () => {
+	const handleImageUpload = async () => {
 		const imageRef = ref(
 			props.storage,
 			`images/profile_pictures/${props.userData.uid}`
 		);
-		uploadBytes(imageRef, imageUpload);
+		await uploadBytes(imageRef, imageUpload);
+	};
+
+	const getProfilePicture = () => {
+		const profilePictureReference = ref(
+			props.storage,
+			`images/profile_pictures/${props.userData.uid}`
+		);
+
+		getDownloadURL(profilePictureReference).then(
+			(url) => {
+				setProfilePicture(url);
+			},
+			(err) => {
+				return true;
+			}
+		);
 	};
 
 	return (
@@ -171,7 +176,7 @@ export const Profile = (props) => {
 						<img
 							id="profile-picture"
 							src={profilePicture ? profilePicture : placeholder}
-							alt="grey silhouette"
+							alt="portrait"
 						></img>
 						{edit ? (
 							<input
