@@ -94,6 +94,7 @@
 	text-align: start;
 	padding: 1rem;
 	padding-top: 3.5rem;
+	/* overflow-x: scroll; */
 }
 
 .profile-body > * {
@@ -119,6 +120,7 @@
 
 .profile-skills {
 	display: flex;
+	flex-wrap: wrap;
 	padding: 0;
 }
 
