@@ -144,6 +144,17 @@
 	font-size: 12px;
 }
 
+#copy-msg {
+	font-size: 12px;
+	position: absolute;
+	right: 1rem;
+	top: -3rem;
+}
+
+#profile-links {
+	position: relative;
+}
+
 #profile-links a {
 	position: relative;
 }

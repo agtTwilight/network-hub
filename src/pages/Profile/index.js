@@ -29,6 +29,7 @@ export const Profile = (props) => {
 	const [edit, setEdit] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(null);
 	const [imageUpload, setImageUpload] = useState(null);
+	const [displayMsg, setDisplayMsg] = useState('none');
 
 	// listen to update to userData in firestore
 	useEffect(() => {
@@ -161,8 +162,6 @@ export const Profile = (props) => {
 
 		return url;
 	};
-
-	const copyToClickboard = () => {};
 
 	return (
 		<section className="profile">
@@ -319,6 +318,9 @@ export const Profile = (props) => {
 							</>
 						) : (
 							<>
+								<p id="copy-msg" className={displayMsg}>
+									Copied to Clipboard!
+								</p>
 								{data.links ? (
 									data.links.map((link, index) => (
 										<a
@@ -338,7 +340,15 @@ export const Profile = (props) => {
 												className="link-clipboard-copy"
 												src={copyLink}
 												alt="copy to clipboard"
-												onClick={copyToClickboard}
+												data-url={link.url}
+												onClick={function (e) {
+													e.preventDefault();
+													navigator.clipboard.writeText(e.target.dataset.url);
+													setDisplayMsg('block');
+													setTimeout(() => {
+														setDisplayMsg('none');
+													}, '1000');
+												}}
 											></img>
 										</a>
 									))
