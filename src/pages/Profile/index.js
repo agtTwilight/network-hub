@@ -40,16 +40,6 @@ export const Profile = (props) => {
 		}
 	});
 
-	// get a users profile picture on page load
-	// useEffect(() => {
-	// 	if (props.userData) {
-	// 		if (props.profileData) {
-	// 			if (props.profileData.profilePictureUrl == null) {
-	// 			}
-	// 		}
-	// 	}
-	// }, []);
-
 	const enableEdit = () => {
 		setEdit(true);
 	};
@@ -174,22 +164,16 @@ export const Profile = (props) => {
 		<section className="profile">
 			{data ? (
 				<>
-					{data.newUser ? (
-						<NewUserSetup
-							profileData={data}
-							handleSetupSubmit={props.handleSetupSubmit}
-						/>
-					) : (
-						<></>
-					)}
 					<div className="profile-header">
 						<img
 							id="profile-picture"
 							src={
 								props.profileData
 									? props.profileData.profilePictureUrl
-									: profilePicture
-									? profilePicture
+										? props.profileData.profilePictureUrl
+										: profilePicture
+										? profilePicture
+										: placeholder
 									: placeholder
 							}
 							alt="portrait"

@@ -1,8 +1,13 @@
 .setup-modal {
 	position: absolute;
+	max-width: 500px;
+	margin: 0 auto;
+	padding: 1rem;
 	border: solid black 1px;
-	background-color: white;
-	top: 0;
-	left: 0;
-	transform: translateX(50%) translateY(50%);
+	background-color: whitesmoke;
+	transform: translateY(40%);
+}
+
+.setup-modal input {
+	margin-bottom: 0.5rem;
 }

@@ -156,10 +156,16 @@ const newUserSignUp = async (user) => {
 	await setDoc(doc(usersRef, user.uid), {
 		newUser: true,
 		name: user.displayName,
-		location: null,
-		title: null,
-		skills: [],
-		links: [],
+		location: 'my location',
+		title: 'my job title',
+		skills: ['my skills'],
+		links: [
+			{
+				description: 'my profile',
+				type: 'google',
+				url: `http://localhost:3000/${user.uid}`,
+			},
+		],
 		uid: user.uid,
 		profilePictureUrl: null,
 	});
