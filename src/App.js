@@ -144,7 +144,7 @@ function ViewProfile() {
 	return (
 		<>
 			{profileData ? (
-				<Profile profileData={profileData} uid={uid} />
+				<Profile profileData={profileData} />
 			) : (
 				<h1>Err: no such user exist</h1>
 			)}
@@ -161,6 +161,7 @@ const newUserSignUp = async (user) => {
 		skills: [],
 		links: [],
 		uid: user.uid,
+		profilePictureUrl: null,
 	});
 	console.log(`succesfully registered ${user.displayName}!`);
 };

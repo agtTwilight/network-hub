@@ -27,7 +27,6 @@ export const Profile = (props) => {
 	const [edit, setEdit] = useState(false);
 	const [profilePicture, setProfilePicture] = useState(null);
 	const [imageUpload, setImageUpload] = useState(null);
-	const { uid } = useParams();
 
 	// listen to update to userData in firestore
 	useEffect(() => {
@@ -44,8 +43,11 @@ export const Profile = (props) => {
 	// get a users profile picture on page load
 	useEffect(() => {
 		if (props.userData) {
-			if (!props.profileData) {
-				getProfilePicture(props.userData.uid);
+			if (props.profileData) {
+				if (props.profileData.profilePictureUrl == null) {
+					getProfilePicture(props.userData.uid);
+					console.log('url fetched');
+				}
 			}
 		}
 	}, []);
@@ -73,9 +75,11 @@ export const Profile = (props) => {
 
 		if (imageUpload !== null) {
 			await handleImageUpload();
-			getProfilePicture(props.userData.uid);
-			edits['profilePictureUrl'] = profilePicture;
+			const url = await getProfilePicture(props.userData.uid);
+			edits['profilePictureUrl'] = url;
 		}
+
+		console.log(edits);
 
 		setEdit(false);
 		if (Object.keys(edits).length) {
@@ -149,20 +153,23 @@ export const Profile = (props) => {
 		await uploadBytes(imageRef, imageUpload);
 	};
 
-	const getProfilePicture = (uid) => {
+	const getProfilePicture = async (uid) => {
 		const profilePictureReference = ref(
 			props.storage,
 			`images/profile_pictures/${uid}`
 		);
 
-		getDownloadURL(profilePictureReference).then(
+		const url = await getDownloadURL(profilePictureReference).then(
 			(url) => {
 				setProfilePicture(url);
+				return url;
 			},
 			(err) => {
 				return true;
 			}
 		);
+
+		return url;
 	};
 
 	return (
